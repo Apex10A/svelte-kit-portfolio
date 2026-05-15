@@ -2,9 +2,12 @@
 	import { onMount } from 'svelte';
 	import { animateSectionBanner } from '$lib/animations/gsap';
 	import { DATA } from '$lib/data/portfolio';
+	import StatusModal from './StatusModal.svelte';
 
 	let banner = $state<HTMLElement | null>(null);
 	let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
+	let showModal = $state(false);
+	let modalMessage = $state('');
 
 	onMount(() => {
 		if (banner) animateSectionBanner(banner);
@@ -18,7 +21,7 @@
 		status = 'loading';
 
 		try {
-			const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+			const response = await fetch('https://formspree.io/f/xzdolwez', {
 				method: 'POST',
 				body: formData,
 				headers: {
@@ -28,12 +31,18 @@
 
 			if (response.ok) {
 				status = 'success';
+				modalMessage = 'Your letter has been received by the editorial desk. We will review your submission and get back to you shortly.';
+				showModal = true;
 				form.reset();
 			} else {
 				status = 'error';
+				modalMessage = 'We encountered an error while trying to deliver your letter. Please check your connection and try again.';
+				showModal = true;
 			}
 		} catch (e) {
 			status = 'error';
+			modalMessage = 'The transmission was interrupted. Our servers might be under maintenance. Please try again later.';
+			showModal = true;
 		}
 	}
 </script>
@@ -113,3 +122,9 @@
 		</div>
 	</div>
 </section>
+
+<StatusModal 
+	bind:show={showModal} 
+	status={status === 'success' ? 'success' : 'error'} 
+	message={modalMessage} 
+/>
