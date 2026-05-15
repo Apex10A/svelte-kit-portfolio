@@ -2,19 +2,21 @@
 
 @theme {
   --color-accent: #c41e3a;
-  --color-paper: #ffffff;
+  --color-paper: #fdfbf7;
   --color-ink: #1a1a1a;
   --color-dark-paper: #1a1710;
   --color-dark-ink: #f5e6c8;
   
   --font-headline: "Playfair Display", serif;
+  --font-headline-sc: "Playfair Display SC", serif;
   --font-body: "IBM Plex Mono", monospace;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #fdfbf7;
   --foreground: #1a1a1a;
   --border-color: #1a1a1a;
+  --accent-muted: rgba(196, 30, 58, 0.1);
   font-family: var(--font-body);
 }
 
@@ -22,23 +24,76 @@
   --background: #1a1710;
   --foreground: #f5e6c8;
   --border-color: #f5e6c8;
+  --accent-muted: rgba(245, 230, 200, 0.05);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x: hidden;
+  /* Subtle paper grain texture */
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline);
+    text-wrap: balance;
+    line-height: 1.1;
   }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Fluid Typography */
+.text-hero-headline {
+  font-size: clamp(2.5rem, 8vw + 1rem, 6.5rem);
+}
+
+.text-section-header {
+  font-size: clamp(1.5rem, 4vw + 1rem, 3.5rem);
+}
+
+@layer components {
+  /* Enhanced Drop Cap */
+  .drop-cap::first-letter {
+    @apply float-left text-8xl md:text-9xl font-headline font-black mr-4 mt-2 leading-[0.7];
+    color: var(--color-accent);
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+  }
+
+  /* Modernized Section Banner */
+  .section-banner {
+    @apply py-3 px-6 border-y-4 text-center font-headline-sc font-black text-2xl md:text-4xl uppercase tracking-[0.25em] my-20 bg-accent/5;
+    border-color: var(--border-color);
+    color: var(--color-accent);
+  }
+
+  /* Article Card Enhancements */
+  .article-card {
+    @apply relative p-8 border-2 transition-all duration-500 bg-white/30 dark:bg-black/10 backdrop-blur-sm;
+    border-color: var(--border-color);
+    box-shadow: 8px 8px 0px var(--border-color);
+  }
+
+  .article-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px var(--color-accent);
+  }
+
+  /* Categorized Accents */
+  .cat-tech { color: #2563eb; border-color: #2563eb; }
+  .cat-design { color: #db2777; border-color: #db2777; }
+  .cat-business { color: #059669; border-color: #059669; }
 }
 
 .newspaper-border {
@@ -46,31 +101,21 @@ body {
 }
 
 .double-border-bottom {
-  border-bottom: 4px double var(--border-color);
+  border-bottom: 6px double var(--border-color);
 }
 
 .double-border-top {
-  border-top: 4px double var(--border-color);
+  border-top: 6px double var(--border-color);
 }
 
 .column-divider {
-  @apply border-r newspaper-border;
+  @apply border-r-2;
+  border-color: var(--border-color);
 }
 
-/* Drop Cap Styling */
-.drop-cap::first-letter {
-  @apply float-left text-6xl md:text-8xl font-headline font-black mr-3 mt-1 leading-[0.8];
-  color: var(--color-accent);
-}
-
-/* Section Banner Styling */
-.section-banner {
-  @apply py-2 px-4 border-y-2 newspaper-border text-center font-headline font-black text-xl md:text-2xl uppercase tracking-[0.2em] my-12;
-}
-
-/* Custom Scrollbar for Newspaper feel */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -78,7 +123,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: var(--color-accent);
   border: 3px solid var(--background);
-  border-radius: 10px;
 }
