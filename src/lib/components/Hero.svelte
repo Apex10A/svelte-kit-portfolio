@@ -84,7 +84,7 @@
 			</div>
 
 			<!-- Ink Particles (35%) -->
-			<div class="lg:w-[35%] h-[400px] lg:h-auto min-h-[300px] relative">
+			<div class="lg:w-[35%] hidden md:flex h-[400px] lg:h-auto min-h-[300px] relative">
 				<canvas bind:this={canvasElement} class="w-full h-full"></canvas>
 				<div class="absolute inset-0 pointer-events-none border-2 newspaper-border opacity-20"></div>
 				<div class="absolute bottom-4 left-0 w-full text-center">
