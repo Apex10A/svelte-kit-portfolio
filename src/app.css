@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #00ff88;
-  --color-dark-bg: #0f1117;
-  --color-card-bg: #1a1d2e;
+  --color-accent: #c41e3a;
+  --color-paper: #ffffff;
+  --color-ink: #1a1a1a;
+  --color-dark-paper: #1a1710;
+  --color-dark-ink: #f5e6c8;
+  
+  --font-headline: "Playfair Display", serif;
+  --font-body: "IBM Plex Mono", monospace;
 }
 
 :root {
-  --background: white;
-  --foreground: #0f1117;
-  font-family: 'Inter', sans-serif;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --border-color: #1a1a1a;
+  font-family: var(--font-body);
 }
 
 .dark {
-  --background: #0f1117;
-  --foreground: #f8fafc;
+  --background: #1a1710;
+  --foreground: #f5e6c8;
+  --border-color: #f5e6c8;
 }
 
 body {
@@ -28,21 +35,50 @@ body {
   html {
     scroll-behavior: smooth;
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+  }
 }
 
-.section-padding {
-  @apply py-20 px-6 md:px-12 lg:px-24;
+.newspaper-border {
+  border-color: var(--border-color);
 }
 
-/* Custom Scrollbar */
+.double-border-bottom {
+  border-bottom: 4px double var(--border-color);
+}
+
+.double-border-top {
+  border-top: 4px double var(--border-color);
+}
+
+.column-divider {
+  @apply border-r newspaper-border;
+}
+
+/* Drop Cap Styling */
+.drop-cap::first-letter {
+  @apply float-left text-6xl md:text-8xl font-headline font-black mr-3 mt-1 leading-[0.8];
+  color: var(--color-accent);
+}
+
+/* Section Banner Styling */
+.section-banner {
+  @apply py-2 px-4 border-y-2 newspaper-border text-center font-headline font-black text-xl md:text-2xl uppercase tracking-[0.2em] my-12;
+}
+
+/* Custom Scrollbar for Newspaper feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-brand/50 rounded-full hover:bg-brand;
+  background: var(--border-color);
+  border: 3px solid var(--background);
+  border-radius: 10px;
 }
