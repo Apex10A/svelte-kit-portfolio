@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { DATA } from '$lib/data/portfolio';
 	const year = new Date().getFullYear();
 </script>
 
@@ -8,7 +9,7 @@
 		
 		<div class="flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80">
 			<div class="text-center md:text-left">
-				© {year} The Dev Chronicle. All Rights Reserved.
+				© {year} {DATA.name}. All Rights Reserved.
 			</div>
 			
 			<div class="italic">
@@ -16,8 +17,9 @@
 			</div>
 			
 			<div class="flex gap-8">
-				<a href="https://github.com/Apex10A" target="_blank" class="hover:text-accent transition-colors">GitHub</a>
-				<a href="https://linkedin.com" target="_blank" class="hover:text-accent transition-colors">LinkedIn</a>
+				<a href={DATA.socials.github} target="_blank" class="hover:text-accent transition-colors">GitHub</a>
+				<a href={DATA.socials.linkedin} target="_blank" class="hover:text-accent transition-colors">LinkedIn</a>
+				<a href={DATA.socials.twitter} target="_blank" class="hover:text-accent transition-colors">Twitter</a>
 			</div>
 		</div>
 	</div>

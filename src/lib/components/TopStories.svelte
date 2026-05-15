@@ -1,43 +1,15 @@
 <script lang="ts">
-	interface Story {
-		id: string;
-		category: string;
-		categoryCode: string;
-		title: string;
-		techStack: string[];
-		excerpt: string;
-		tags?: string[];
-	}
+	import { DATA } from '$lib/data/portfolio';
 
-	let stories: Story[] = $props([
-		{
-			id: '1',
-			category: 'TECHNOLOGY',
-			categoryCode: 'A1',
-			title: 'CryptoFlow Dashboard',
-			techStack: ['VUE.JS', 'TYPESCRIPT', 'ECHARTS', 'TAILWINDCSS'],
-			excerpt: 'Advanced cryptocurrency portfolio tracking dashboard with real-time analytics and interactive charts.',
-			tags: ['fintech', 'dashboard', 'data-viz']
-		},
-		{
-			id: '2',
-			category: 'DESIGN',
-			categoryCode: 'B2',
-			title: 'The Dev Chronicle',
-			techStack: ['NEXT.JS', 'TYPESCRIPT', 'THREE.JS', 'GSAP', 'TAILWINDCSS'],
-			excerpt: 'This newspaper-themed developer portfolio. An elegant showcase of web experiences that solve real problems.',
-			tags: ['portfolio', 'news', 'creative']
-		},
-		{
-			id: '3',
-			category: 'BACKEND',
-			categoryCode: 'C1',
-			title: 'Commerce API',
-			techStack: ['NODE.JS', 'EXPRESS', 'POSTGRESQL', 'JWT', 'STRIPE'],
-			excerpt: 'Production-ready RESTful API with JWT authentication, Stripe integration, and comprehensive error handling.',
-			tags: ['api', 'ecommerce', 'backend']
-		}
-	]);
+	const stories = DATA.projects.slice(1, 4).map((p, index) => ({
+		id: (index + 2).toString(),
+		category: ['TECHNOLOGY', 'DESIGN', 'BUSINESS'][index % 3],
+		categoryCode: `${String.fromCharCode(65 + (index % 3))}${index + 1}`,
+		title: p.title,
+		techStack: p.technologies.map(t => t.toUpperCase()),
+		excerpt: p.description,
+		tags: p.technologies.slice(0, 3)
+	}));
 </script>
 
 <section class="top-stories dark py-20 px-4 md:px-8">

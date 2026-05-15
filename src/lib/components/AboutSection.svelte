@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { animateSectionBanner } from '$lib/animations/gsap';
+	import { DATA } from '$lib/data/portfolio';
 	import SkillsSection from './SkillsSection.svelte';
 
 	let banner = $state<HTMLElement | null>(null);
@@ -26,12 +27,9 @@
 
 			<!-- Right: Bio -->
 			<div class="space-y-6 text-lg leading-relaxed text-justify">
-				<p>
-					Specializing in high-performance web architecture and immersive user interfaces, I have spent years refining the art of digital craftsmanship. My journey began with a curiosity about how data flows across the globe, eventually leading to a mastery of the tools that power the contemporary internet.
-				</p>
-				<p>
-					From the intricate dance of frontend frameworks like SvelteKit and React to the robust reliability of backend systems using Node.js and PostgreSQL, my work is defined by a relentless pursuit of technical excellence. I believe that every product should tell a story of quality, stability, and thoughtful design.
-				</p>
+				{#each DATA.about.split('\n\n') as paragraph}
+					<p>{@html paragraph}</p>
+				{/each}
 				
 				<SkillsSection />
 			</div>

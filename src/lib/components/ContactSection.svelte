@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { animateSectionBanner } from '$lib/animations/gsap';
+	import { DATA } from '$lib/data/portfolio';
 
 	let banner = $state<HTMLElement | null>(null);
 	let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');

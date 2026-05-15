@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { initInkParticles } from '$lib/three/inkParticles';
 	import { animateHero } from '$lib/animations/gsap';
+	import { DATA } from '$lib/data/portfolio';
 
 	let canvasElement = $state<HTMLCanvasElement | null>(null);
 	let headline = $state<HTMLElement | null>(null);
@@ -48,21 +49,21 @@
 					bind:this={headline}
 					class="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight tracking-tight uppercase"
 				>
-					Full-Stack Developer Ships Products That Actually Work
+					{DATA.role} Ships Products That Actually Work
 				</h2>
 
 				<div class="mb-8 border-y-2 newspaper-border py-2 flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80">
-					<span>By Zencoder | Frontend + Backend Engineer</span>
+					<span>By {DATA.name} | {DATA.role}</span>
 					<span>3 MIN READ</span>
 				</div>
 
 				<div class="space-y-6">
 					<p bind:this={subheadline} class="text-xl md:text-2xl font-bold leading-relaxed">
-						In a world of flickering pixels and broken deployments, one developer rises to bring stability, performance, and exceptional design to the modern web ecosystem.
+						{DATA.intro}
 					</p>
 
 					<p class="text-base md:text-lg leading-loose opacity-90 text-justify drop-cap" bind:this={dropCap}>
-						The digital landscape is evolving at a breakneck pace, leaving many products behind in a wake of technical debt and uninspired user experiences. However, the emergence of production-grade engineering practices, combined with a keen eye for aesthetic detail, is setting a new standard for what users should expect from their digital interactions. This report explores the intersection of cutting-edge technology and timeless design principles.
+						{DATA.about.split('\n\n')[0].replace(/<[^>]*>/g, '')}
 					</p>
 
 					<div bind:this={ctas} class="flex flex-wrap gap-6 pt-4">

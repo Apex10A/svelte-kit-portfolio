@@ -1,31 +1,20 @@
 <script lang="ts">
 	import InkParticles from './InkParticles.svelte';
+	import { DATA } from '$lib/data/portfolio';
 
-	interface Story {
-		title: string;
-		subtitle: string;
-		author: string;
-		role: string;
-		techStack: string;
-		breakingTag: string;
-		primaryCTA: string;
-		primaryLink: string;
-		secondaryCTA: string;
-		secondaryLink: string;
-	}
-
-	let story: Story = $props({
-		title: 'Full-Stack Developer Ships Products That Actually Work',
-		subtitle: 'Building interfaces and systems that scale. Crafting digital experiences that users love.',
-		author: 'DEVELOPER NAME',
-		role: 'FULL-STACK ENGINEER',
-		techStack: 'REACT, NODE.JS, TYPESCRIPT',
+	const firstProject = DATA.projects[0];
+	const story = {
+		title: firstProject.title,
+		subtitle: firstProject.description,
+		author: DATA.name,
+		role: DATA.role,
+		techStack: firstProject.technologies.join(', ').toUpperCase(),
 		breakingTag: 'BREAKING',
-		primaryCTA: 'READ FULL STORY',
-		primaryLink: '#',
-		secondaryCTA: 'VIEW PORTFOLIO',
-		secondaryLink: '#'
-	});
+		primaryCTA: 'VIEW PROJECT',
+		primaryLink: firstProject.external,
+		secondaryCTA: 'GITHUB',
+		secondaryLink: firstProject.github
+	};
 </script>
 
 <section class="featured-story dark py-20 px-4 md:px-8">

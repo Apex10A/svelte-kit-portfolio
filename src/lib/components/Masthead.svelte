@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { DATA } from '$lib/data/portfolio';
 
 	let isDark = $state(false);
 	let today = $state('');
@@ -44,7 +45,7 @@
 			</div>
 			<div class="flex gap-6">
 				<span>Edition: Web Edition</span>
-				<a href="https://github.com" target="_blank" class="hover:text-accent transition-colors">Digital Archive</a>
+				<a href={DATA.socials.github} target="_blank" class="hover:text-accent transition-colors">Digital Archive</a>
 			</div>
 		</div>
 
