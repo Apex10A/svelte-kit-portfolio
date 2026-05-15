@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { animateSkills } from '$lib/animations/gsap';
+	import { DATA } from '$lib/data/portfolio';
 
 	const skills = [
-		'React', 'Next.js', 'SvelteKit', 'Node.js', 
-		'TypeScript', 'PostgreSQL', 'Three.js', 'TailwindCSS'
+		...DATA.skills.languages,
+		...DATA.skills.frameworks,
+		...DATA.skills.stateManagement
 	];
 
 	onMount(() => {
