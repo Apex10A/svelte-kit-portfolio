@@ -38,7 +38,7 @@
 		<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-8 border-b-2 newspaper-border pb-4 font-bold text-[10px] md:text-xs tracking-[0.3em] uppercase opacity-80">
 			<div class="flex flex-col gap-1">
 				<span>{today}</span>
-				<span class="text-accent">Live Updates: ☀️ Building in production</span>
+				
 			</div>
 			<div class="text-center hidden lg:block">
 				Established 2026 • Vol. 001 • No. 1
