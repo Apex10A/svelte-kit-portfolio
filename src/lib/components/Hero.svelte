@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { initInkParticles } from '$lib/three/inkParticles';
-	import { animateHero } from '$lib/animations/gsap';
+	import HalftonePlate from '$lib/components/HalftonePlate.svelte';
 	import { DATA } from '$lib/data/portfolio';
 
-	let canvasElement = $state<HTMLCanvasElement | null>(null);
 	let headline = $state<HTMLElement | null>(null);
 	let breakingTag = $state<HTMLElement | null>(null);
 	let dropCap = $state<HTMLElement | null>(null);
@@ -12,22 +10,15 @@
 	let ctas = $state<HTMLElement | null>(null);
 
 	onMount(() => {
-		let cleanupInk: (() => void) | undefined;
-		if (canvasElement) {
-			cleanupInk = initInkParticles(canvasElement);
-		}
-
-		animateHero({
-			headline,
-			breakingTag,
-			dropCap,
-			subheadline,
-			ctas
+		import('$lib/animations/gsap').then(({ animateHero }) => {
+			animateHero({
+				headline,
+				breakingTag,
+				dropCap,
+				subheadline,
+				ctas
+			});
 		});
-
-		return () => {
-			if (cleanupInk) cleanupInk();
-		};
 	});
 </script>
 
@@ -37,7 +28,7 @@
 			<!-- Main Story (65%) -->
 			<div class="lg:w-[65%] column-divider pr-0 lg:pr-12">
 				<div class="mb-4">
-					<span 
+					<span
 						bind:this={breakingTag}
 						class="bg-accent text-white px-3 py-1 text-xs font-bold uppercase tracking-[0.2em]"
 					>
@@ -45,14 +36,16 @@
 					</span>
 				</div>
 
-				<h2 
+				<h2
 					bind:this={headline}
 					class="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight tracking-tight uppercase"
 				>
 					{DATA.role} Ships Products That Actually Work
 				</h2>
 
-				<div class="mb-8 border-y-2 newspaper-border py-2 flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80">
+				<div
+					class="mb-8 border-y-2 newspaper-border py-2 flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest opacity-80"
+				>
 					<span>By {DATA.name} | {DATA.role}</span>
 					<span>3 MIN READ</span>
 				</div>
@@ -62,19 +55,22 @@
 						{DATA.intro}
 					</p>
 
-					<p class="text-base md:text-lg leading-loose opacity-90 text-justify drop-cap" bind:this={dropCap}>
+					<p
+						class="text-base md:text-lg leading-loose opacity-90 text-justify drop-cap"
+						bind:this={dropCap}
+					>
 						{DATA.about.split('\n\n')[0].replace(/<[^>]*>/g, '')}
 					</p>
 
 					<div bind:this={ctas} class="flex flex-wrap gap-6 pt-4">
-						<a 
-							href="#about" 
+						<a
+							href="#about"
 							class="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest border-b-2 border-foreground hover:text-accent hover:border-accent transition-all"
 						>
 							Read Full Story <span class="group-hover:translate-x-1 transition-transform">→</span>
 						</a>
-						<a 
-							href="#projects" 
+						<a
+							href="#projects"
 							class="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest border-b-2 border-foreground hover:text-accent hover:border-accent transition-all"
 						>
 							View Portfolio <span class="group-hover:translate-x-1 transition-transform">→</span>
@@ -83,19 +79,18 @@
 				</div>
 			</div>
 
-			<!-- Ink Particles (35%) -->
+			<!-- Halftone portrait plate (35%) -->
 			<div class="lg:w-[35%] hidden md:flex h-[400px] lg:h-auto min-h-[300px] relative">
-				<canvas bind:this={canvasElement} class="w-full h-full"></canvas>
-				<div class="absolute inset-0 pointer-events-none border-2 newspaper-border opacity-20"></div>
-				<div class="absolute bottom-4 left-0 w-full text-center">
-					<span class="text-[10px] font-bold uppercase tracking-widest opacity-50 italic">Fig 1. Digital Ink Dispersion Pattern</span>
-				</div>
+				<HalftonePlate />
 			</div>
 		</div>
 
 		<!-- Page Footer -->
 		<div class="mt-16 text-right border-t newspaper-border pt-4">
-			<a href="#projects" class="text-xs font-bold uppercase tracking-widest hover:text-accent transition-colors">
+			<a
+				href="#projects"
+				class="text-xs font-bold uppercase tracking-widest hover:text-accent transition-colors"
+			>
 				Continued on Page 2 <span class="inline-block animate-bounce-x">→</span>
 			</a>
 		</div>
@@ -104,8 +99,13 @@
 
 <style>
 	@keyframes bounce-x {
-		0%, 100% { transform: translateX(0); }
-		50% { transform: translateX(5px); }
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+		50% {
+			transform: translateX(5px);
+		}
 	}
 	.animate-bounce-x {
 		animation: bounce-x 1s infinite;
